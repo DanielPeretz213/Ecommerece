@@ -1,0 +1,66 @@
+.containerLoginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background-color: antiquewhite;
+}
+
+.formLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 80%;
+}
+
+.containerSignUpPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+  background-color: antiquewhite;
+}
+
+.hederContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 10px;
+}
+
+.hedarConected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.hederNavigete {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+}
+
+.productCard {
+  width: 400px;
+  padding: 16px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 3;
+  padding: 10px;
+}
+
+.totalSum{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+
