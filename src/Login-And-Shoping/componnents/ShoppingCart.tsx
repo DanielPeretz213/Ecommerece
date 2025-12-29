@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo } from "react";
 import {
   Box,
   Button,
@@ -17,20 +17,16 @@ import { cartItem } from "../types/types";
 
 const ShoppingCart: React.FC = () => {
   const { loggedInUser, removeItem } = useContextInformation();
-  const [totalSum, setTotalSum] = useState<number>(0);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setTotalSum(calculateTotalSum());
-  }, [loggedInUser]);
-
-  const calculateTotalSum = (): number => {
+  const totalSum = useMemo(() => {
     if (!loggedInUser) return 0;
+
     return loggedInUser.cart.reduce(
       (sum, item) => sum + item.quantity * Number(item.price),
       0
     );
-  };
+  }, [loggedInUser]);
 
   const renderContent = () => {
     if (!loggedInUser) {
@@ -58,19 +54,13 @@ const ShoppingCart: React.FC = () => {
             {loggedInUser.cart.map((item: cartItem) => (
               <TableRow key={item.id}>
                 <TableCell>
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    style={{ width: 60 }}
-                  />
+                  <img src={item.image} alt={item.name} style={{ width: 60 }} />
                 </TableCell>
 
                 <TableCell>{item.name}</TableCell>
 
                 <TableCell>
-                  <Typography fontWeight="bold">
-                    {item.price}$
-                  </Typography>
+                  <Typography fontWeight="bold">{item.price}$</Typography>
                 </TableCell>
 
                 <TableCell>{item.quantity}</TableCell>
@@ -106,9 +96,7 @@ const ShoppingCart: React.FC = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Typography variant="h6">
-          Total Sum: {totalSum.toFixed(2)}$
-        </Typography>
+        <Typography variant="h6">Total Sum: {totalSum.toFixed(2)}$</Typography>
 
         <Button
           variant="contained"
