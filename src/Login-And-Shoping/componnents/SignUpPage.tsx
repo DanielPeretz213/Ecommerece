@@ -10,31 +10,32 @@ const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passVerification, setPassVerification] = useState<string>("");
-  const {handleAddUser} = useContextInformation();
+  const { handleAddUser } = useContextInformation();
   const navigate = useNavigate();
 
   const handlerSendClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if(password !== passVerification){
-        toast.error("the password is not the same");
-    }else{
-        setName("");
-        setEmail("");
-        setPassword("");
-        setPassVerification("");
-        const newUser:user = {
-            id:String(Date.now()),
-            name:name,
-            password:password,
-            email: email,
-            conected:true,
-            cart:[],
-        }
-        handleAddUser(newUser);
-        navigate("/");
+    if (password !== passVerification) {
+      toast.error("the password is not the same");
+    } else {
+      setName("");
+      setEmail("");
+      setPassword("");
+      setPassVerification("");
+      const newUser: user = {
+        id: crypto.randomUUID(),
+        name: name,
+        password: password,
+        email: email,
+        conected: true,
+        cart: [],
+      };
+
+      handleAddUser(newUser);
+      navigate("/");
     }
-  }
-  
+  };
+
   return (
     <div className="containerSignUpPage">
       <Card
@@ -46,7 +47,7 @@ const SignUpPage: React.FC = () => {
           width: "40%",
           height: "80%",
           backgroundColor: "success",
-          padding: "10px"
+          padding: "10px",
         }}
       >
         <h1>Sign Up</h1>
@@ -66,8 +67,8 @@ const SignUpPage: React.FC = () => {
             margin="normal"
             fullWidth
             required
-            onChange={(e)=> setEmail(e.target.value)}
-            />
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
           <TextField
             label="password"
@@ -86,13 +87,16 @@ const SignUpPage: React.FC = () => {
             margin="normal"
             fullWidth
             required
-            onChange={(e)=> setPassVerification(e.target.value)}
-            />
+            onChange={(e) => setPassVerification(e.target.value)}
+          />
 
           <Button type="submit" fullWidth>
             Send
           </Button>
-          <p>To conect {<Button onClick={()=> navigate("/login")}>click</Button>}</p>
+          <p>
+            To conect{" "}
+            {<Button onClick={() => navigate("/login")}>click</Button>}
+          </p>
         </form>
       </Card>
     </div>

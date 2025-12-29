@@ -11,20 +11,25 @@ const Header: React.FC = () => {
 
   return (
     <div className="headerContainer">
-      <div className="headerConected" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div
+        className="headerConected"
+        style={{ display: "flex", alignItems: "center", gap: "10px" }}
+      >
         <Avatar
           sx={{ bgcolor: "#1565f9", cursor: "pointer" }}
           onClick={() => {
             if (!loggedInUser?.conected) navigate("/login");
           }}
         >
-          {!loggedInUser ? <PersonIcon /> : 
+          {!loggedInUser ? (
+            <PersonIcon />
+          ) : (
             loggedInUser.name
               .split(" ")
               .map((word) => word[0])
               .join("")
               .toUpperCase()
-          }
+          )}
         </Avatar>
 
         <Button
@@ -44,20 +49,33 @@ const Header: React.FC = () => {
         {loggedInUser?.conected ? `Hello ${loggedInUser.name}` : "Hello"}
       </Typography>
 
-      <div className="headerNavigete" style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: 8 }}>
-        <Button variant="contained" color="primary" onClick={() => navigate("/")}>
+      <div
+        className="headerNavigete"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginTop: 8,
+        }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/")}
+        >
           Home
         </Button>
-
-        <Badge
-          badgeContent={loggedInUser?.cart.length ?? 0}
-          color="primary"
+        <Button
           onClick={() =>
             loggedInUser?.conected ? navigate("/cart") : navigate("/login")
           }
+          variant="text"
+          sx={{ padding: 0, minWidth: 0 }}
         >
-          <ShoppingCartIcon sx={{ fontSize: 28, cursor: "pointer" }} />
-        </Badge>
+          <Badge badgeContent={loggedInUser?.cart.length ?? 0} color="primary">
+            <ShoppingCartIcon sx={{ fontSize: 28 }} />
+          </Badge>
+        </Button>
       </div>
     </div>
   );
