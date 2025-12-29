@@ -12,7 +12,7 @@ const DrawCard: React.FC<DrawCardProps> = ({ product }) => {
     const {addProductToUserCart} = useContextInformation();
     
   return (
-    <Card key={product.id} className="productCard" sx={{
+    <Card className="productCard" sx={{
         width:400,
         height:550,
         display:"flex",
@@ -54,7 +54,7 @@ const DrawCard: React.FC<DrawCardProps> = ({ product }) => {
           {product.description}
         </Typography>
       </Box>
-      <Button fullWidth variant="contained" onClick={()=> addProductToUserCart(product)}>Add To Card</Button>
+      <Button fullWidth variant="contained" onClick={()=> addProductToUserCart(product)}>Add To Cart</Button>
     </Card>
   );
 };

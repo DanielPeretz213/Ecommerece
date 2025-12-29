@@ -1,58 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import { useContextInformation } from "../hooks/Context";
-//import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { Avatar, Badge, Button } from "antd";
-import { ShoppingCartOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Badge, Button, Typography } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Header: React.FC = () => {
-  const { loggedInUser, logIn, logOut } = useContextInformation();
+  const { loggedInUser, logOut } = useContextInformation();
   const navigate = useNavigate();
 
   return (
-    <div className="hederContainer">
-      <div className="hedarConected">
+    <div className="headerContainer">
+      <div className="headerConected" style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <Avatar
-          size="large"
-          style={{ backgroundColor: "#1565f9ff", cursor:"pointer" }}
-          icon={!loggedInUser ? <UserOutlined /> : undefined}
+          sx={{ bgcolor: "#1565f9", cursor: "pointer" }}
           onClick={() => {
-            if (!loggedInUser?.conected) return navigate("/login");
+            if (!loggedInUser?.conected) navigate("/login");
           }}
         >
-          {loggedInUser
-            ? loggedInUser.name
-                .split(" ")
-                .map((word) => word[0])
-                .join("")
-                .toUpperCase()
-            : null}
+          {!loggedInUser ? <PersonIcon /> : 
+            loggedInUser.name
+              .split(" ")
+              .map((word) => word[0])
+              .join("")
+              .toUpperCase()
+          }
         </Avatar>
-        {
-          <Button
-            type="primary"
-            onClick={() =>
-              loggedInUser?.conected
-                ? logOut(loggedInUser.id)
-                : navigate("/login")
-            }
-          >
-            {loggedInUser?.conected ? "Log Out" : "Log In"}
-          </Button>
-        }
+
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            loggedInUser?.conected
+              ? logOut(loggedInUser.id)
+              : navigate("/login")
+          }
+        >
+          {loggedInUser?.conected ? "Log Out" : "Log In"}
+        </Button>
       </div>
 
-      <h3>{loggedInUser?.conected ? `hello ${loggedInUser.name}` : "hello"}</h3>
-      <div className="hederNavigete">
-        <Button type="primary" onClick={() => navigate("/")}>
+      <Typography variant="h6" sx={{ marginTop: 1 }}>
+        {loggedInUser?.conected ? `Hello ${loggedInUser.name}` : "Hello"}
+      </Typography>
+
+      <div className="headerNavigete" style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: 8 }}>
+        <Button variant="contained" color="primary" onClick={() => navigate("/")}>
           Home
         </Button>
+
         <Badge
-          count={loggedInUser?.cart.length}
-          onClick={() =>loggedInUser?.conected? navigate("/cart") : navigate("/login")}
+          badgeContent={loggedInUser?.cart.length ?? 0}
+          color="primary"
+          onClick={() =>
+            loggedInUser?.conected ? navigate("/cart") : navigate("/login")
+          }
         >
-          <ShoppingCartOutlined style={{ fontSize: "1.2em",cursor:"pointer" }} />
+          <ShoppingCartIcon sx={{ fontSize: 28, cursor: "pointer" }} />
         </Badge>
       </div>
     </div>

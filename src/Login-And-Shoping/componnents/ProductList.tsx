@@ -2,19 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Product } from "../types/types";
 import { fetchListItemAPI } from "../functions/fetchAPI";
 import DrawCard from "./DrawCard";
-import { Box, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 
 const ProductList: React.FC = () => {
   const [listProducts, setListProducts] = useState<Product[]>();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data: Product[] = await fetchListItemAPI();
-      if (!data) {
-        throw new Error("thre is problem wite fetching list product");
-      } else {
-        setListProducts(data);
-      }
+      const data = await fetchListItemAPI();
+      setListProducts(data);
     };
     fetchData();
   }, []);
@@ -30,7 +26,7 @@ const ProductList: React.FC = () => {
           justifyContent: "center",
           alignItems: "flex-start",
           padding: 3,
-          backgroundColor:"#F5F6FA"
+          backgroundColor: "#F5F6FA",
         }}
       >
         {listProducts?.map((ele) => (
@@ -44,21 +40,3 @@ const ProductList: React.FC = () => {
 };
 
 export default ProductList;
-//<Grid
-//        container
-//        spacing={4}
-//        justifyContent="center"
-//        sx={{
-//          display: "flex",
-//          flexWrap: "wrap",
-//        }}
-//      >
-//        {listProducts?.map((ele) => (
-//          <Grid key={ele.id}>
-//            <DrawCard product={ele} />
-//          </Grid>
-//          //<Grid item xs={12} key={ele.id}>
-//          //  <DrawCard product={ele} />
-//          //</Grid>
-//        ))}
-//      </Grid>

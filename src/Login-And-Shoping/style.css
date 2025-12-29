@@ -23,7 +23,7 @@
   background-color: antiquewhite;
 }
 
-.hederContainer {
+.headerContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,14 +31,14 @@
   padding: 10px;
 }
 
-.hedarConected {
+.headerConected {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
 }
 
-.hederNavigete {
+.headerNavigete {
   display: flex;
   justify-content: center;
   align-items: center;

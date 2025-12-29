@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 interface ContextType {
-  hendleAddUser: (user: user) => void;
+  handleAddUser: (user: user) => void;
   logOut: (id: string) => void;
   logIn: (userEmail: string, userPass: string) => void;
   users: user[];
@@ -23,7 +23,7 @@ export const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   });
   const [loggedInUser, setLoggedInUser] = useState<user | null>(null);
 
-  const hendleAddUser = (newUser: user) => {
+  const handleAddUser = (newUser: user) => {
     const exists = users.find(
       (u) => u.email === newUser.email && u.password === newUser.password
     );
@@ -35,7 +35,6 @@ export const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
     }
 
     setUsers((prev) => [...prev, newUser]);
-    console.log(users);
     setLoggedInUser(newUser);
     toast.success(`Hello ${newUser.name}, you were added successfully`);
   };
@@ -103,7 +102,6 @@ export const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
           return { ...u, cart: updateCart };
         })
       );
-      console.log(loggedInUser);
       toast.success(`${newCartItem.name} add successfuly!`);
     }
   };
@@ -121,7 +119,6 @@ export const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
             }
             return i;
           }).filter((item): item is cartItem => item !== undefined);
-          console.log({...currentUser,cart:cart})
           setLoggedInUser({...currentUser,cart:cart})
           return {...currentUser,cart:cart}
         }
@@ -138,7 +135,7 @@ export const Context: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <creatCont.Provider
       value={{
-        hendleAddUser,
+        handleAddUser,
         logIn,
         logOut,
         users,

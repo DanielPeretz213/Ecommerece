@@ -1,8 +1,7 @@
 import { Button, Card, TextField } from "@mui/material";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { useState } from "react";
 import "../style.css"
 import { useContextInformation } from "../hooks/Context";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage: React.FC = () => {
@@ -11,7 +10,7 @@ const LoginPage: React.FC = () => {
   const {logIn} = useContextInformation();
   const navigate = useNavigate();
 
-  const hendlerSendClick = (e: React.FormEvent<HTMLFormElement>) =>{
+  const handleSendClick = (e: React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     logIn(email,password);
     setEmail("");
@@ -32,7 +31,7 @@ const LoginPage: React.FC = () => {
         }}
       >
         <h1>Login</h1>
-        <form className="formLogin" onSubmit={hendlerSendClick}>
+        <form className="formLogin" onSubmit={handleSendClick}>
           <TextField
             label="email"
             value={email}
@@ -53,9 +52,9 @@ const LoginPage: React.FC = () => {
           />
 
           <Button type="submit" fullWidth>
-            send
+            Send
           </Button>
-          <p>To Register {<Button onClick={()=> navigate("/signUp")}>click</Button>}</p>
+          <p>To Register {<Button onClick={()=> navigate("/signUp")}>Click</Button>}</p>
         </form>
       </Card>
     </div>

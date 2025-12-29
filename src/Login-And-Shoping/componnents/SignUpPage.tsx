@@ -10,10 +10,10 @@ const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passVerification, setPassVerification] = useState<string>("");
-  const {hendleAddUser} = useContextInformation();
+  const {handleAddUser} = useContextInformation();
   const navigate = useNavigate();
 
-  const hendlerSendClick = (e: React.FocusEvent<HTMLFormElement>) => {
+  const handlerSendClick = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if(password !== passVerification){
         toast.error("the password is not the same");
@@ -22,7 +22,7 @@ const SignUpPage: React.FC = () => {
         setEmail("");
         setPassword("");
         setPassVerification("");
-        const user:user = {
+        const newUser:user = {
             id:String(Date.now()),
             name:name,
             password:password,
@@ -30,7 +30,7 @@ const SignUpPage: React.FC = () => {
             conected:true,
             cart:[],
         }
-        hendleAddUser(user);
+        handleAddUser(newUser);
         navigate("/");
     }
   }
@@ -49,8 +49,8 @@ const SignUpPage: React.FC = () => {
           padding: "10px"
         }}
       >
-        <h1>sign Up</h1>
-        <form className="formSignUp" onSubmit={hendlerSendClick}>
+        <h1>Sign Up</h1>
+        <form className="formSignUp" onSubmit={handlerSendClick}>
           <TextField
             label="name"
             value={name}
@@ -80,7 +80,7 @@ const SignUpPage: React.FC = () => {
           />
 
           <TextField
-            label="Paasword Verification"
+            label="Password Verification"
             type="password"
             value={passVerification}
             margin="normal"
@@ -90,7 +90,7 @@ const SignUpPage: React.FC = () => {
             />
 
           <Button type="submit" fullWidth>
-            send
+            Send
           </Button>
           <p>To conect {<Button onClick={()=> navigate("/login")}>click</Button>}</p>
         </form>
